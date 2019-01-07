@@ -1,6 +1,6 @@
 import { GET_QUESTIONS } from '../actions/questions';
 
-export default questions = (state = {}, action) => {
+const questions = (state = {}, action) => {
   switch(action.type) {
     case GET_QUESTIONS :
       return {
@@ -11,3 +11,5 @@ export default questions = (state = {}, action) => {
       return state;
   }
 };
+
+export default questions;

@@ -1,8 +1,8 @@
 import {
   _getUsers,
   _getQuestions,
-  _saveQuestion,
-  _saveQuestionAnswer,
+//  _saveQuestion,
+//  _saveQuestionAnswer,
 } from './_DATA.js';
 
 /**
@@ -10,5 +10,10 @@ import {
 */
 export const getQuestions = () => (
   _getQuestions()
+    .then((questions) => questions)
+);
+
+export const getUsers = () => (
+  _getUsers()
     .then((questions) => questions)
 );

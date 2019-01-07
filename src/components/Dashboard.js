@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+import QuestionPreview from './QuestionPreview';
 
 const Dashboard = (props) => {
     return (
@@ -24,7 +25,7 @@ const Dashboard = (props) => {
         </ul>
         <div class="tab-content" id="questionTabsContent">
           {
-            props.questions.map((id) => (
+            props.questionIds.map((id) => (
               <QuestionPreview id={id}/>
             ))
           }

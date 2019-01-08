@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 const QuestionPreview = (props) => {
   return (
-    <div class="QuestionPreview">
+    <div className="QuestionPreview">
       Question Author: {props.question.author}
     </div>
   );

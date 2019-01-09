@@ -1,7 +1,9 @@
 import { setAuthedUser } from '../actions/authedUser';
 import Dashboard from './Dashboard';
+import Nav from './Nav';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 const AUTHED_ID = 'tylermcginnis';
 
@@ -11,11 +13,12 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">
-      {
-        <Dashboard />
-      }
-      </div>
+      <Router>
+        <div className="App">
+          <Nav />
+          <Route path='/' exact component={Dashboard} />
+        </div>
+      </Router>
     );
   }
 };

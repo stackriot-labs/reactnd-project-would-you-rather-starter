@@ -90,7 +90,7 @@ class Dashboard extends Component{
                       id={questionType.id}
                       role="tabpanel"
                       aria-labelledby={`${questionType.id}-tab`}>
-                      <ul className="Dashboard-questions">
+                      <ul className="Dashboard-questions list-unstyled">
                         {
                           questionType.contentIds.map((id) => (
                             <li key={id}>
@@ -110,11 +110,14 @@ class Dashboard extends Component{
   }
 };
 
-function mapStateToProps ({ authedUser, questions }) {
+function mapStateToProps ({ authedUser, questions, users }) {
   let newProps = {};
   tabs.questionSort({ authedUser, questions });
 
   Object.values(tabs).forEach((tab) => {
+    /*
+    The object tabs are regular tab data whereas the functions are assignment criteria
+    */
     if(typeof(tab) === 'object'){
       newProps[tab.id] = tab.contentIds.sort((a,b) => questions[b].timestamp - questions[a].timestamp);
     }

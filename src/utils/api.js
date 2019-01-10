@@ -15,5 +15,5 @@ export const getQuestions = () => (
 
 export const getUsers = () => (
   _getUsers()
-    .then((questions) => questions)
+    .then((users) => users)
 );

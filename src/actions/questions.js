@@ -1,4 +1,5 @@
 import { showLoading, hideLoading } from 'react-redux-loading';
+import { getUsersAction } from './users';
 import * as API from '../utils/api';
 
 export const GET_QUESTIONS = 'GET_QUESTIONS';
@@ -14,7 +15,11 @@ export const getQuestions = () => (
     return API.getQuestions()
       .then((questions) => {
         dispatch(getQuestionsAction(questions));
-        dispatch(hideLoading());
+        API.getUsers()
+          .then((users) => {
+            dispatch(getUsersAction(users));
+            dispatch(hideLoading());
+          });
       });
     }
 );

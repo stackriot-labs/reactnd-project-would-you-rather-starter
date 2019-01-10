@@ -10,13 +10,8 @@ const auth = (store) => (next) => (action) => {
   */
 
  // Manually set the authed user for now
- store.dispatch(setAuthedUser(AUTHED_ID));
+ // store.dispatch(setAuthedUser(AUTHED_ID));
 
-  if(window.location.pathname !== '/login'){
-    if(!store.getState().authedUser){
-      window.location = '/login';
-    }
-  }
 };
 
 export default auth;

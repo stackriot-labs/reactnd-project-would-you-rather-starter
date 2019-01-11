@@ -1,9 +1,9 @@
-import { getQuestions } from '../actions/questions';
-import './Dashboard.css';
+import { getQuestions } from '../../actions/questions';
+import './style.css';
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import LoadingBar from 'react-redux-loading';
-import QuestionPreview from './QuestionPreview';
+import QuestionPreview from '../QuestionPreview/index';
 
 /*
 This object might belong in its own class file or something like that, but for now it's here.

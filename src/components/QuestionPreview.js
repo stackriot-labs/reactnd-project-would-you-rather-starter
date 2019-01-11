@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const QuestionPreview = (props) => {
   return (
@@ -12,7 +13,7 @@ const QuestionPreview = (props) => {
       </div>
       <div className="card-body">
         <div className="container">
-          <div className="row">
+          <div className="row align-items-center">
             <div className="col-3 avatar">
                 <img src={`${props.author.avatarURL}`} alt={`${props.author.name}'s avatar`} className="mw-100" />
             </div>
@@ -22,6 +23,10 @@ const QuestionPreview = (props) => {
                   Would you rather...
                 </strong>
               </p>
+              <p className="card-text">
+                {`${props.question.optionOne.text}...`}
+              </p>
+              <Link className="btn btn-outline-primary btn-block" to={`/question/${props.question.id}`}>View Poll</Link>
             </div>
           </div>
         </div>

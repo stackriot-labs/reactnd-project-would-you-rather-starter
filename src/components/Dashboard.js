@@ -1,4 +1,5 @@
 import { getQuestions } from '../actions/questions';
+import './Dashboard.css';
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import LoadingBar from 'react-redux-loading';
@@ -62,8 +63,8 @@ class Dashboard extends Component{
           // Don't show anything until the loading has been disabled
           this.props.loading === true
           ? null
-          : <div className="Dashboard">
-              <ul className="nav nav-tabs" id="questionTabs" role="tablist">
+          : <div className="Dashboard mx-md-auto">
+              <ul className="Dashboard-questionTabs nav nav-tabs justify-content-center" role="tablist">
                 {
                   Object.values(tabs).filter((tab) => typeof(tab) === 'object').map((questionType) => (
                     <li className="nav-item" key={questionType.id}>
@@ -81,7 +82,7 @@ class Dashboard extends Component{
                   ))
                 }
               </ul>
-              <div className="tab-content" id="questionTabsContent">
+              <div className="tab-content mw-100">
                 {
                   Object.values(tabs).filter((tab) => typeof(tab) === 'object').map((questionType) => (
                     <div

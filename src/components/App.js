@@ -1,4 +1,5 @@
 import { setAuthedUser } from '../actions/authedUser';
+import './App.css';
 import Dashboard from './Dashboard';
 import Nav from './Nav';
 import React, { Component } from 'react';

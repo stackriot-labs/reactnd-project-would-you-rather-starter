@@ -6,10 +6,25 @@ const QuestionPreview = (props) => {
     !props.loading &&
     <div className="QuestionPreview card">
       <div className="card-header">
-        {props.author.name} asks...
+        <strong>
+          {props.author.name} asks...
+        </strong>
       </div>
-      <div class="card-body">
-        Would you rather...
+      <div className="card-body">
+        <div className="container">
+          <div className="row">
+            <div className="col-3 avatar">
+                <img src={`${props.author.avatarURL}`} alt={`${props.author.name}'s avatar`} className="mw-100" />
+            </div>
+            <div className="col-9">
+              <p className="card-text">
+                <strong>
+                  Would you rather...
+                </strong>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

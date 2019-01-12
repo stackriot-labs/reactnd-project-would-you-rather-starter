@@ -5,6 +5,7 @@ import Nav from '../Nav/index';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import QuestionPage from '../QuestionPage/index';
 
 const AUTHED_ID = 'tylermcginnis';
 
@@ -18,6 +19,7 @@ class App extends Component {
         <div className="App">
           <Nav />
           <Route path='/' exact component={Dashboard} />
+          <Route path='/question/:id' component={QuestionPage} />
         </div>
       </Router>
     );

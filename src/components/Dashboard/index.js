@@ -52,10 +52,7 @@ let tabs = {
 
 class Dashboard extends Component{
     componentDidMount() {
-      // Load data depending on route
-      if(Object.values(this.props.questions).length === 0){
-        this.props.dispatch(getQuestions());
-      }
+      this.props.dispatch(getQuestions());
     }
     render() {
       return (

@@ -55,11 +55,10 @@ class QuestionPage extends Component {
                     <div className="col-9">
                     {
                       this.props.voted ?
-                        <Results />
+                        <Results question={this.props.question} />
                       :
                         <QuestionForm
                           question={this.props.question}
-                          questionOption={this.props.originalQuestionOption || this.state.questionOption}
                           handleFormSelection={this.handleFormSelection}
                         />
                       }
@@ -82,10 +81,29 @@ function mapStateToProps ({ authedUser, questions, users }, props) {
   tabs.questionSort({ authedUser, questions});
   const voted = tabs.answered.questionIds.some((questionId) => questionId === id);
 
+  let voteData = { 'voteTotal': 0 };
+  questionOptionNames.forEach((optionName) => {
+    voteData[optionName] = 0;
+  });
+
+  if(question){
+    voteData = questionOptionNames.reduce((voteObject, optionName) => {
+      voteObject[optionName] += question[optionName].votes.length;
+      return voteObject;
+    }, voteData);
+  }
+
+  voteData.voteTotal = voteData.optionOne + voteData.optionTwo;
+
+  const { voteTotal, optionOne, optionTwo } = voteData;
+
   return {
     question,
     author,
     voted,
+    voteTotal,
+    optionOne,
+    optionTwo,
     loading : question === undefined || author === undefined
   };
 }

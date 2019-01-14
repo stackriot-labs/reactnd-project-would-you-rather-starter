@@ -19,7 +19,6 @@ class QuestionForm extends Component {
                   name="questionOption"
                   id={optionName}
                   value={optionName}
-                  checked={this.props.questionOption === optionName}
                   onChange={this.props.handleFormSelection}
                 />
                 <label

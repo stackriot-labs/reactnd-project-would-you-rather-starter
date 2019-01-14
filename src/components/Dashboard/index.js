@@ -11,22 +11,22 @@ The purpose is to centralize the location of tab labels, associated data, and cr
 You can add more tabs by adding objects after the initially provided ones. You can add criteria for sorting questions
 into new tabs by editing `questionSort` or you can add more functions to the end of the `tabs` object for custom criteria.
 */
-let tabs = {
+export const tabs = {
   'answered' : {
     id: 'answered',
     name: 'Answered',
-    contentIds : []
+    questionIds : []
   },
   'unanswered' : {
     id: 'unanswered',
     name: 'Unanswered',
-    contentIds : []
+    questionIds : []
   },
   'questionSort' : ({ authedUser, questions }) => {
     let questionMatch;
 
-    Object.values(tabs)[0].contentIds = [];
-    Object.values(tabs)[1].contentIds = [];
+    Object.values(tabs)[0].questionIds = [];
+    Object.values(tabs)[1].questionIds = [];
 
     Object.values(questions).forEach((question) => {
       questionMatch = false;
@@ -42,9 +42,9 @@ let tabs = {
         .some((voter) => voter === authedUser);
 
       if(questionMatch){
-        Object.values(tabs)[0].contentIds.push(question.id);
+        Object.values(tabs)[0].questionIds.push(question.id);
       } else {
-        Object.values(tabs)[1].contentIds.push(question.id);
+        Object.values(tabs)[1].questionIds.push(question.id);
       }
     });
   }
@@ -92,9 +92,9 @@ class Dashboard extends Component{
                       aria-labelledby={`${questionType.id}-tab`}>
                       <ul className="Dashboard-questions list-unstyled">
                         {
-                          questionType.contentIds.map((id) => (
+                          questionType.questionIds.map((id) => (
                             <li key={id}>
-                              <QuestionPreview id={id}/>
+                              <QuestionPreview id={id} questionType={questionType} />
                             </li>
                           ))
                         }
@@ -119,7 +119,7 @@ function mapStateToProps ({ authedUser, questions, users }) {
     The object tabs are regular tab data whereas the functions are assignment criteria
     */
     if(typeof(tab) === 'object'){
-      newProps[tab.id] = tab.contentIds.sort((a,b) => questions[b].timestamp - questions[a].timestamp);
+      newProps[tab.id] = tab.questionIds.sort((a,b) => questions[b].timestamp - questions[a].timestamp);
     }
   });
 

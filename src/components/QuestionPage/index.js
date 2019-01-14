@@ -1,5 +1,7 @@
 import { getQuestions } from '../../actions/questions';
+import { tabs } from '../Dashboard/index';
 import QuestionForm from './QuestionForm/index';
+import Results from './Results/index';
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import LoadingBar from 'react-redux-loading';
@@ -15,6 +17,9 @@ class QuestionPage extends Component {
   constructor(props) {
     super(props);
     this.handleFormSelection = this.handleFormSelection.bind(this);
+    this.setState({
+      voted: props.voted
+    });
   }
   componentDidMount() {
     // Load data depending on route
@@ -48,11 +53,16 @@ class QuestionPage extends Component {
                       <img src={`${this.props.author.avatarURL}`} alt={`${this.props.author.name}'s avatar`} className="mw-100" />
                     </div>
                     <div className="col-9">
-                      <QuestionForm
-                        question={this.props.question}
-                        questionOption={this.props.originalQuestionOption || this.state.questionOption}
-                        handleFormSelection={this.handleFormSelection}
-                      />
+                    {
+                      this.props.voted ?
+                        <Results />
+                      :
+                        <QuestionForm
+                          question={this.props.question}
+                          questionOption={this.props.originalQuestionOption || this.state.questionOption}
+                          handleFormSelection={this.handleFormSelection}
+                        />
+                      }
                     </div>
                   </div>
                 </div>
@@ -69,24 +79,13 @@ function mapStateToProps ({ authedUser, questions, users }, props) {
   const { id } = props.match.params;
   const question = questions[id];
   const author = question ? users[question.author] : undefined;
-  let originalQuestionOption = '';
-
-  if(question){
-    questionOptionNames.some((optionName) => {
-      let voted = question[optionName].votes.some((vote) => vote === authedUser);
-    if(voted){
-        originalQuestionOption = optionName;
-      }
-
-      return voted;
-    });
-
-  }
+  tabs.questionSort({ authedUser, questions});
+  const voted = tabs.answered.questionIds.some((questionId) => questionId === id);
 
   return {
     question,
     author,
-    originalQuestionOption,
+    voted,
     loading : question === undefined || author === undefined
   };
 }

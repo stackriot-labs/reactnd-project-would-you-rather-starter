@@ -78,10 +78,11 @@ function mapStateToProps ({ questions, users }) {
   let created = false;
   let newUsers = {};
 
-  let voteData = {'totalAnswered': 0, 'totalCreated': 0, 'total': 0};
+  let voteData = {};
   // Only do the following if the question data is ready
   if(questions && users){
     newUsers = Object.values(users).map((user) => {
+      voteData = {'totalAnswered': 0, 'totalCreated': 0, 'total': 0};
       voteData = Object.values(questions).reduce((voteObject, question) => {
         voted = questionOptionNames.some((optionName) => (
            question[optionName].votes.some((vote) => vote === user.id)

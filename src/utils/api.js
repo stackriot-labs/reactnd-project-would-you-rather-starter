@@ -2,7 +2,7 @@ import {
   _getUsers,
   _getQuestions,
 //  _saveQuestion,
-//  _saveQuestionAnswer,
+  _saveQuestionAnswer,
 } from './_DATA.js';
 
 /**
@@ -16,4 +16,8 @@ export const getQuestions = () => (
 export const getUsers = () => (
   _getUsers()
     .then((users) => users)
+);
+
+export const saveAnswer = ({ authedUser, qid, answer }) => (
+  _saveQuestionAnswer({ authedUser, qid, answer })
 );

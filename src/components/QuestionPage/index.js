@@ -1,4 +1,4 @@
-import { getQuestions } from '../../actions/questions';
+import { getQuestions, saveAnswer } from '../../actions/questions';
 import { tabs } from '../Dashboard/index';
 import QuestionForm from './QuestionForm/index';
 import Results from './Results/index';
@@ -17,13 +17,14 @@ class QuestionPage extends Component {
   constructor(props) {
     super(props);
     this.handleFormSelection = this.handleFormSelection.bind(this);
-    this.setState({
-      voted: props.voted
-    });
+    this.handleFormSubmission = this.handleFormSubmission.bind(this);
   }
   componentDidMount() {
     // Load data depending on route
     this.props.dispatch(getQuestions());
+    this.setState({
+      voted: this.props.voted
+    });
   }
   handleFormSelection(event){
     let questionOptionInput = event.target.form.elements['questionOption'];
@@ -32,6 +33,15 @@ class QuestionPage extends Component {
     this.setState({
       questionOption
     });
+  }
+  handleFormSubmission(event){
+    event.preventDefault();
+
+    if(this.state.questionOption){
+      const qid = this.props.question.id;
+      const answer = this.state.questionOption;
+      this.props.dispatch(saveAnswer({ qid, answer}));
+    }
   }
   render(){
     return (
@@ -66,6 +76,7 @@ class QuestionPage extends Component {
                         <QuestionForm
                           question={this.props.question}
                           handleFormSelection={this.handleFormSelection}
+                          handleFormSubmission={this.handleFormSubmission}
                         />
                       }
                     </div>

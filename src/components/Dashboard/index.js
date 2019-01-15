@@ -63,7 +63,10 @@ class Dashboard extends Component{
           this.props.loading === true
           ? null
           : <div className="Dashboard mx-md-auto">
-              <ul className="Dashboard-questionTabs nav nav-tabs justify-content-center" role="tablist">
+              <ul
+                className="Dashboard-questionTabs nav nav-tabs justify-content-center"
+                role="tablist"
+              >
                 {
                   Object.values(tabs).filter((tab) => typeof(tab) === 'object').map((questionType) => (
                     <li className="nav-item" key={questionType.id}>

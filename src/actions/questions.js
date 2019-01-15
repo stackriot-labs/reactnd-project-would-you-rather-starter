@@ -23,3 +23,14 @@ export const getQuestions = () => (
       });
     }
 );
+
+export const saveAnswer = ({ qid, answer }) => (
+  (dispatch, getState) => {
+    const { authedUser } = getState();
+
+    return API.saveAnswer({ authedUser, qid, answer })
+      .then(() => {
+        dispatch(getQuestions());
+      });
+  }
+);

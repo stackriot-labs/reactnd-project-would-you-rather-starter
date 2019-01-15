@@ -11,10 +11,11 @@ const Results = (props) => {
       <h2>Results</h2>
         {
           questionOptionNames.map((optionName) => {
-            const percentage = ( props[optionName] * 100 ) / ( props.voteTotal * 100 ) * 100;
-            return <div className={`card${props.myOption === optionName ? ' bg-success' : ''}`}>
-                    <div class="card-body">
-                      <h5 class="card-title">
+            const rawPercentage = ( props[optionName] * 100 ) / ( props.voteTotal * 100 ) * 100;
+            const percentage = Number.isInteger(rawPercentage) ? rawPercentage : rawPercentage.toFixed(2);
+            return <div className={`card${props.myOption === optionName ? ' bg-success' : ''}`} key={optionName}>
+                    <div className="card-body">
+                      <h5 className="card-title">
                         {`${questionPreamble}${props.question[optionName].text}${interrogativeMarker}`}
                       </h5>
                       <div className="progress">

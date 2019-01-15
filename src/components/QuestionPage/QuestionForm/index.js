@@ -5,7 +5,7 @@ import { questionOptionNames } from '../index';
 class QuestionForm extends Component {
   render() {
     return (
-      <form className="QuestionForm">
+      <form className="QuestionForm" onSubmit={this.props.handleFormSubmission}>
         <h2 className="card-title">
             Would You Rather...
         </h2>

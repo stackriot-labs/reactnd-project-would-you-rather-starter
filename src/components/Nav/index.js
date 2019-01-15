@@ -24,16 +24,23 @@ export const routes = {
   },
 };
 
-const Nav = ({ path }) => {
+const Nav = ({ path, user }) => {
   return (
     <ul className="Nav nav nav-pills nav-fill">
       {
         Object.values(routes).map((route) => (
           <li key={route.id} className="nav-item">
-            <NavLink className="nav-link" exact activeClassName="active" to={route.path}>{route.name}</NavLink>
+            <NavLink
+              className="nav-link"
+              exact activeClassName="active"
+              to={route.path}>{route.name}
+            </NavLink>
           </li>
         ))
       }
+      <li className="nav-item">
+        <div className="nav-link disabled">Hello, {user ? user.name : ''}</div>
+      </li>
     </ul>
   );
 };

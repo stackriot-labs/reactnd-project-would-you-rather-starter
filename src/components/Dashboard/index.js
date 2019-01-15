@@ -12,14 +12,14 @@ You can add more tabs by adding objects after the initially provided ones. You c
 into new tabs by editing `questionSort` or you can add more functions to the end of the `tabs` object for custom criteria.
 */
 export const tabs = {
-  'answered' : {
-    id: 'answered',
-    name: 'Answered',
-    questionIds : []
-  },
   'unanswered' : {
     id: 'unanswered',
     name: 'Unanswered',
+    questionIds : []
+  },
+  'answered' : {
+    id: 'answered',
+    name: 'Answered',
     questionIds : []
   },
   'questionSort' : ({ authedUser, questions }) => {
@@ -42,9 +42,9 @@ export const tabs = {
         .some((voter) => voter === authedUser);
 
       if(questionMatch){
-        Object.values(tabs)[0].questionIds.push(question.id);
-      } else {
         Object.values(tabs)[1].questionIds.push(question.id);
+      } else {
+        Object.values(tabs)[0].questionIds.push(question.id);
       }
     });
   }

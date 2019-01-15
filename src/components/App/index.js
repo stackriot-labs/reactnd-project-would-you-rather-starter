@@ -18,7 +18,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Nav />
+          <Nav user={this.props.user} />
           <Route path='/' exact component={Dashboard} />
           <Route path='/question/:id' component={QuestionPage} />
           <Route path='/leaderboard' component={Leaderboard} />
@@ -28,4 +28,10 @@ class App extends Component {
   }
 };
 
-export default connect()(App);
+function mapStateToProps ({ authedUser, users }) {
+  return {
+    user: users[authedUser]
+  };
+}
+
+export default connect(mapStateToProps)(App);

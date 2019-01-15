@@ -82,6 +82,7 @@ function mapStateToProps ({ questions, users }) {
   // Only do the following if the question data is ready
   if(questions && users){
     newUsers = Object.values(users).map((user) => {
+      // Keep track of each user's score with this object
       voteData = {'totalAnswered': 0, 'totalCreated': 0, 'total': 0};
       voteData = Object.values(questions).reduce((voteObject, question) => {
         voted = questionOptionNames.some((optionName) => (
@@ -107,7 +108,7 @@ function mapStateToProps ({ questions, users }) {
         ...user,
         ...voteData
       };
-    });
+    }).sort((userA, userB) => userB.total - userA.total);
   }
 
   return {

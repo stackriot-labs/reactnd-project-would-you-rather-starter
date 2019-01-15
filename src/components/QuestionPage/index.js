@@ -100,11 +100,16 @@ function mapStateToProps ({ authedUser, questions, users }, props) {
 
   let myOption = null;
 
+  /*
+  A container to hold vote results while looping through
+  question data.
+  */
   let voteData = { 'voteTotal': 0 };
   questionOptionNames.forEach((optionName) => {
     voteData[optionName] = 0;
   });
 
+  // Only do the following if the question data is ready
   if(question){
     voteData = questionOptionNames.reduce((voteObject, optionName) => {
       voteObject[optionName] += question[optionName].votes.length;
@@ -126,14 +131,15 @@ function mapStateToProps ({ authedUser, questions, users }, props) {
   const { voteTotal, optionOne, optionTwo } = voteData;
 
   return {
-    question,
-    author,
-    voted,
-    voteTotal,
-    optionOne,
-    optionTwo,
-    myOption,
-    loading : question === undefined || author === undefined
+    question, // The question data
+    author, // The question author data
+    voted, // Whether or not the authenticated user voted
+    voteTotal, // Total votes for the question
+    optionOne, // Total votes for option one
+    optionTwo, // Total votes for option two
+    myOption, // The option that the authenticated user voted for
+    loading : question === undefined ||
+      author === undefined // Whether or not the page is loading
   };
 }
 

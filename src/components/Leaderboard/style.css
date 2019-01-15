@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+.Leaderboard .score-badge {
+  font-size: 1.3em;
+}
+
+.Leaderboard .stats-list {
+  min-width: 200px;
+}
+
+.Leaderboard .score-card{
+  min-width: 55px
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .Leaderboard {
+    width: 75%;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .Leaderboard {
+    width: 50%;
+  }
+}

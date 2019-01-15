@@ -1,6 +1,7 @@
 import { setAuthedUser } from '../../actions/authedUser';
 import './style.css';
 import Dashboard from '../Dashboard/index';
+import Leaderboard from '../Leaderboard/index';
 import Nav from '../Nav/index';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -20,6 +21,7 @@ class App extends Component {
           <Nav />
           <Route path='/' exact component={Dashboard} />
           <Route path='/question/:id' component={QuestionPage} />
+          <Route path='/leaderboard' component={Leaderboard} />
         </div>
       </Router>
     );

@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .AddQuestion {
+    width: 75%;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .AddQuestion {
+    width: 50%;
+  }
+}

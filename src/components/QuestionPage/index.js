@@ -29,8 +29,7 @@ class QuestionPage extends Component {
     });
   }
   handleFormSelection(event){
-    let questionOptionInput = event.target.form.elements['questionOption'];
-    let questionOption = questionOptionInput.value;
+    let questionOption = event.target.value;
 
     this.setState({
       questionOption

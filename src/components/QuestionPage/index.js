@@ -21,7 +21,9 @@ class QuestionPage extends Component {
   }
   componentDidMount() {
     // Load data depending on route
-    this.props.dispatch(getQuestions());
+    if(!this.props.question){
+      this.props.dispatch(getQuestions());
+    }
     this.setState({
       voted: this.props.voted
     });

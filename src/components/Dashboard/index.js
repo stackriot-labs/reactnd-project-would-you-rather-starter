@@ -52,7 +52,9 @@ export const tabs = {
 
 class Dashboard extends Component{
     componentDidMount() {
-      this.props.dispatch(getQuestions());
+      if(Object.values(this.props.questions).length === 0){
+        this.props.dispatch(getQuestions());
+      }
     }
     render() {
       return (

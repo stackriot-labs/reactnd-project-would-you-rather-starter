@@ -7,7 +7,9 @@ import { questionOptionNames } from '../QuestionPage/index';
 
 class Leaderboard extends Component {
   componentDidMount() {
-    this.props.dispatch(getQuestions());
+    if(Object.values(this.props.users).length === 0){
+      this.props.dispatch(getQuestions());
+    }
   }
   render(){
     return (

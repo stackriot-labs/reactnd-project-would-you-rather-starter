@@ -1,3 +1,7 @@
+# Instructions
+
+You know the drill. Either run `npm start` or `yarn start` if you're cool like me.
+
 # Would You Rather Project
 
 This is the starter code for the final assessment project for Udacity's React & Redux course.

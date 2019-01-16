@@ -8,9 +8,9 @@ export const routes = {
     path: '/'
   },
   'new-question': {
-    id: 'new-question',
-    name: 'New Question',
-    path: '/new-question'
+    id: 'add',
+    name: 'Add a Question',
+    path: '/add'
   },
   'leaderboard': {
     id: 'leaderboard',

@@ -1,12 +1,13 @@
 import { setAuthedUser } from '../../actions/authedUser';
-import './style.css';
 import Dashboard from '../Dashboard/index';
 import Leaderboard from '../Leaderboard/index';
+import AddQuestion from '../AddQuestion/index';
 import Nav from '../Nav/index';
+import QuestionPage from '../QuestionPage/index';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import QuestionPage from '../QuestionPage/index';
+import './style.css';
 
 const AUTHED_ID = 'tylermcginnis';
 
@@ -22,6 +23,7 @@ class App extends Component {
           <Route path='/' exact component={Dashboard} />
           <Route path='/question/:id' component={QuestionPage} />
           <Route path='/leaderboard' component={Leaderboard} />
+          <Route path='/add' component={AddQuestion} />
         </div>
       </Router>
     );

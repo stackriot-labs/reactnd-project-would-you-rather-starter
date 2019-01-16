@@ -1,3 +1,4 @@
+import { showLoading, hideLoading } from 'react-redux-loading';
 import * as API from '../utils/api';
 
 export const SET_AUTHED_USER = 'SET_AUTHED_USER';
@@ -23,10 +24,12 @@ export const removeAuthedUserAction = () => (
 export const setAuthedUser = (id) => (
   (dispatch) =>
   {
+    dispatch(showLoading());
     return API.getUsers()
       .then((users) => {
         const userId = users[id] ? id : null;
           dispatch(setAuthedUserAction(userId));
+          dispatch(hideLoading());
       });
   }
 );

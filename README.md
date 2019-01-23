@@ -1,4 +1,31 @@
-# Instructions
+# Intro
+
+This is my solution for the *Would Your Rather* project for [Udacity's React Nanodegree](https://www.udacity.com/course/react-nanodegree--nd019).
+It is based on the [project starter code](https://github.com/udacity/reactnd-project-would-you-rather-starter), which begins 
+with nothing but a JS file with the app's initial state. It is meant to be an example site that provides a basic demonstration
+of [React](https://reactjs.org) and [Redux](http://redux.js.org/). 
+
+You will notice various quirks, such as how all the authentication is on the frontend, and the application state is always 
+reset when you reload the page or directly visit a URL from the browser, as opposed to navigating through the site via the links.
+This is all due to how the Redux store is not persistent, as that requirement was not in the scope for this project. I might
+come back and revamp this project in the future, however.
+
+# Usage
+When at the login screen, choose a user from the dropdown and click the Login button. You will then see the Dashboard as
+that user. You can view other users questions that you've answered or not yet answered by clicking the tabs. For answered,
+questions, you will be shown the overall results among users. For unanswered questions, you will be shown a form to submit
+your answer. The questions are all in the form of "Would you rather..." (e.g. "learn Swift or learn Javascript?").
+
+You can also view the Leaderboards which just update as you answer and create questions. You can also logout.
+
+Again, note that since the Redux store data does not persist, everything will be reset to the initial data if you reload or 
+type in a URL to visit.
+
+# Deployment Instructions
+
+For Docker deployment, first build the image:
+
+    docker build --tag=enderandpeter/would-you-rather .
 
 You know the drill. Either run `npm start` or `yarn start` if you're cool like me.
 

@@ -33,8 +33,9 @@ if [ $GIT_REMOTE ]; then
 
  # Run the web app's build command
  cd "$WORKDIR"
+ script /dev/null
  if screen -dmS would-you-rather "serve -s build -p $PORT"; then
-    echo "The project should now be running"
+    echo "The project should now be either building or running in the 'would-you-rather' screen session"
  else
     echo "The project is NOT running"
     exit 1

@@ -2,7 +2,25 @@
 
 # Deploy the web app if the git remote was given
 if [ $GIT_REMOTE ]; then
-  if [ -e $SSHDIR/id_rsa ] && [ -e $SSHDIR/id_rsa.pub ]; then
+  if [ -z "$(ls "$WORKDIR")" ]; then
+   echo "Deploying web app at $GIT_REMOTE to $WORKDIR"
+
+   if [ ! -d $DEPLOY_USER_HOME/.ssh ]; then
+    mkdir $DEPLOY_USER_HOME/.ssh \
+       && chmod 700 $DEPLOY_USER_HOME/.ssh \
+       && ENV_CREATED=1
+
+       if [ $ENV_CREATED ]; then
+         echo "Created .ssh for $DEPLOY_USER"
+       else
+         echo "Could NOT create environment for $DEPLOY_USER"
+         exit 1
+       fi
+   else
+    echo "Found .ssh for $DEPLOY_USER"
+   fi
+
+   if [ -e $SSHDIR/id_rsa ] && [ -e $SSHDIR/id_rsa.pub ]; then
     if ! [ -e $DEPLOY_USER_HOME/.ssh/id_rsa ]; then
         echo "Copying SSH key files..."
         cp $SSHDIR/id_rsa* $DEPLOY_USER_HOME/.ssh
@@ -16,10 +34,7 @@ if [ $GIT_REMOTE ]; then
     exit 1
   fi
 
-  if [ -z "$(ls "$WORKDIR")" ]; then
-   echo "Deploying web app at $GIT_REMOTE to $WORKDIR"
-
-   echo "ssh-keyscan $GIT_DOMAIN >> ~/.ssh/known_hosts \
+  echo "ssh-keyscan $GIT_DOMAIN >> ~/.ssh/known_hosts \
      && git clone $GIT_REMOTE $WORKDIR" | su - $DEPLOY_USER --shell=/bin/bash \
      && CODE_DEPLOYED=1
 
@@ -30,14 +45,25 @@ if [ $GIT_REMOTE ]; then
  else
    echo "$WORKDIR contains files"
  fi
-
- # Run the web app's build command
- cd "$WORKDIR"
- script /dev/null
- if screen -dmS would-you-rather "serve -s build -p $PORT"; then
-    echo "The project should now be either building or running in the 'would-you-rather' screen session"
- else
-    echo "The project is NOT running"
-    exit 1
- fi
 fi
+
+# Run the web app's build command
+cd "$WORKDIR"
+
+if yarn install; then
+    echo "The project has been built!"
+    echo "IMPORTANT: Please press Ctrl-P+Q to send the server to the background in order to keep it running."
+else
+    echo "The project was NOT built"
+    exit 1
+fi
+
+if [ $GIT_REMOTE ]; then
+    # Make and run the production build
+    yarn build
+    serve -s "$WORKDIR"/build -p $PORT
+else
+    # Launch the dev server
+    yarn start
+fi
+

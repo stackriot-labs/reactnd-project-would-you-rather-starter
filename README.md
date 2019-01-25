@@ -23,11 +23,35 @@ type in a URL to visit.
 
 # Deployment Instructions
 
+Take note of the following available environment variables when building the container. You should only need to use
+`GIT_REMOTE` when doing volume-based deployment for production. The other settings are optional:
+
+* `GIT_REMOTE` - Set this to the URL of the git repo that the project is in for volume-based deployment. The presence
+  of this value will trigger production deployment
+* `GIT_DOMAIN` - The domain of the `GIT_REMOTE`, which is needed to allow SSH connections to the endpoint without
+  prompting for user input. Default: `github.com`
+* `PORT` - The port that the node server will run on. Default: `8003`
+* `DEPLOY_USER` - The user in the container that will manage deployment. Default: `node`
+* `DEPLOY_USER_HOME` - The `DEPLOY_USER`'s home directory. Default: `/home/$DEPLOY_USER`
+* `SSHDIR` - The directory where the SSH key pair from the project `.ssh` directory is copied to before they are later
+  copied to the `DEPLOY_USER`'s `.ssh`. Default: `/root/Downloads/ssh`
+* `WORKDIR` - Where the project will be loaded. Default: `$DEPLOY_USER_HOME/would-you-rather` 
+
 For Docker deployment, first build the image:
 
     docker build --tag=enderandpeter/would-you-rather .
+    
+Then either set a `GIT_REMOTE` for volume-based production deployment or omit this value for bind-mounted dev deployment:
 
-You know the drill. Either run `npm start` or `yarn start` if you're cool like me.
+## Volume-based
+
+    docker run -p 8003:8003 -e PORT=8003 -v would-you-rather:/home/node/would-you-rather --name=would-you-rather -e GIT_REMOTE=git@github.com:enderandpeter/reactnd-project-would-you-rather-starter.git --restart=always -it enderandpeter/would-you-rather
+    
+## Bind-mounted
+ 
+    docker run -p 8003:8003 -e PORT=8003 -v /path/to/would-you-rather:/home/node/would-you-rather --name=would-you-rather --restart=always -it enderandpeter/would-you-rather
+
+Otherwise, you know the drill. Either run `npm install && npm start` or `yarn install && yarn start` if you're cool like me.
 
 # Would You Rather Project
 

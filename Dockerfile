@@ -8,7 +8,7 @@ ENV WORKDIR=$DEPLOY_USER_HOME/would-you-rather \
     PORT=8003
 
 RUN apt-get update \
-           && apt-get install -y apt-file vim mlocate man-db less screen \
+           && apt-get install -y apt-file vim mlocate man-db less \
            && apt-file update \
            && npm install -g create-react-app \
            && npm install -g serve \

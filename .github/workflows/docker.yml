@@ -15,5 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: env | sort
       run: docker build . --file Dockerfile --tag stackriot/would-you-rather:$(date +%s)

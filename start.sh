@@ -20,7 +20,7 @@ if [ $GIT_REMOTE ]; then
     echo "Found .ssh for $DEPLOY_USER"
    fi
 
-   if [ -e $SSHDIR/id_rsa ] && [ -e $SSHDIR/id_rsa.pub ]; then
+   if [ -e $SSHDIR/id_rsa ]; then
     if ! [ -e $DEPLOY_USER_HOME/.ssh/id_rsa ]; then
         echo "Copying SSH key files..."
         cp $SSHDIR/id_rsa* $DEPLOY_USER_HOME/.ssh

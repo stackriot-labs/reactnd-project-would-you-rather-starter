@@ -1,4 +1,4 @@
-FROM node
+FROM node:lts
 
 ENV DEPLOY_USER=node
 ENV DEPLOY_USER_HOME=/home/$DEPLOY_USER
@@ -10,11 +10,11 @@ ENV WORKDIR=$DEPLOY_USER_HOME/would-you-rather \
 COPY *.sh /usr/local/bin/
 COPY .ssh/id_* "$SSHDIR"/
 
-RUN apt-get update \
-           && apt-get install -y apt-file vim mlocate man-db less \
-           && apt-file update \
-           && npm install -g create-react-app \
-           && npm install -g serve \
+RUN apt update \
+           && apt install --yes vim less \
+           && npm install --location=global npm \
+           && npm update --location=global yarn \
+           && yarn global add serve \
            && mkdir "$WORKDIR" \
            && chown $DEPLOY_USER: "$WORKDIR" \
            && chmod +x /usr/local/bin/*.sh

@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+    cat >> $DEPLOY_USER_HOME/.profile <<EOS
+export DEPLOY_USER=$DEPLOY_USER
+export DEPLOY_USER_HOME=$DEPLOY_USER_HOME
+export WORKDIR=$WORKDIR
+export GIT_REMOTE=$GIT_REMOTE
+
+cd $WORKDIR
+EOS
+
 # Deploy the web app if the git remote was given
 if [ $GIT_REMOTE ]; then
   if [ -z "$(ls "$WORKDIR")" ]; then
@@ -50,7 +59,9 @@ fi
 # Run the web app's build command
 cd "$WORKDIR"
 
-if yarn install; then
+echo "yarn install" | su - $DEPLOY_USER --shell=/bin/bash && APP_INSTALLED=1
+
+if [ $APP_INSTALLED ]; then
     echo "The project has been built!"
     echo "IMPORTANT: Please press Ctrl-P+Q to send the server to the background in order to keep it running."
 else
@@ -60,10 +71,10 @@ fi
 
 if [ $GIT_REMOTE ]; then
     # Make and run the production build
-    yarn build
-    serve -s "$WORKDIR"/build -p $PORT
+    echo "yarn build \
+    && serve -s "$WORKDIR"/build -p $PORT" | su - $DEPLOY_USER --shell=/bin/bash
 else
     # Launch the dev server
-    yarn start
+    echo "yarn start" | su - $DEPLOY_USER --shell=/bin/bash 
 fi
 

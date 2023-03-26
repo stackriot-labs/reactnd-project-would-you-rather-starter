@@ -1,4 +1,4 @@
-FROM node:lts
+FROM node:14
 
 ENV DEPLOY_USER=node
 ENV DEPLOY_USER_HOME=/home/$DEPLOY_USER

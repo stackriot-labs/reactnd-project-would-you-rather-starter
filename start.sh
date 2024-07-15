@@ -5,9 +5,15 @@ export DEPLOY_USER=$DEPLOY_USER
 export DEPLOY_USER_HOME=$DEPLOY_USER_HOME
 export WORKDIR=$WORKDIR
 export GIT_REMOTE=$GIT_REMOTE
+export PORT=$PORT
 
 cd $WORKDIR
 EOS
+
+if [ $NEWUID ]; then
+  echo "Setting $DEPLOY_USER uid to $NEWUID"
+  usermod --uid $NEWUID $DEPLOY_USER
+fi
 
 # Deploy the web app if the git remote was given
 if [ $GIT_REMOTE ]; then

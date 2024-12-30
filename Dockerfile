@@ -8,7 +8,7 @@ ENV WORKDIR=$DEPLOY_USER_HOME/would-you-rather \
     PORT=8003
 
 COPY *.sh /usr/local/bin/
-COPY .ssh/id_* "$SSHDIR"/
+COPY ./.ssh/id_* "$SSHDIR"/
 
 RUN apt update \
            && apt install --yes vim less \
